@@ -1,18 +1,91 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="home flex flex-col items-center">
+    <div class="input_cont w-1/3 relative">
+      <input
+        type="search"
+        name=""
+        id="search-inp"
+        placeholder="Enter a city name"
+        class=" w-full focus:outline-none bg-transparent border-b focus:border-weather-color-secondly focus:shadow-[0px_1px_0_0_#004E71]"
+        v-model="searchQuery"
+        @input="getCities"
+      />
+      <div v-if="city" class="suggest-city p-1 bg-white h-7 w-full hover:bg-weather-color-secondly hover:text-white cursor-pointer" 
+      @click="CityView">
+        {{ city.name }} ,{{ city.country }}
+      </div>
+      <div v-if="noMatchingCities" class="suggest-city p-1 bg-white h-fit w-full
+       hover:bg-weather-color-secondly hover:text-white cursor-pointer">
+      There is no matching cities</div>
+  </div>
+    
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import axios from 'axios';
 export default {
   name: 'HomeView',
-  components: {
-    HelloWorld
-  }
-}
+  data() {
+    return {
+      searchQuery: '',
+      city: null,
+      noMatchingCities: false,
+      cityErrorServer: false,
+      weatherErrorServer: false,
+      
+
+    };
+  },
+  methods: {
+    async getCities() {
+      try {
+        if (this.searchQuery !== '') {
+          const cities = await axios.get(`https://api.api-ninjas.com/v1/city?name=${this.searchQuery}&X-Api-Key=YVa6zxGP4xhPrJFjDeMb0A==3mEW070aoDb5Klxh`);
+          if (cities.data.length > 0) {
+            this.cityErrorServer = false
+            this.noMatchingCities = false
+            this.city = cities.data[0];
+            console.log('City:', this.city);
+          } else {
+            this.noMatchingCities = true
+            this.city = null;
+          }
+        }
+        else {
+        // Clear the city when the input is empty
+        this.noMatchingCities = false
+        this.city = null;
+      }
+      } catch (error) {
+        this.cityErrorServer = true
+        console.error(error);
+      }
+    },
+    async CityView() {
+      if (this.city) {
+        try {
+          this.cityErrorServer = false
+          
+          this.$router.push(
+            {
+              name:'cityView',
+              params:{city: this.city.name , country:this.city.country, 
+                lat:this.city.latitude , lon:this.city.longitude}
+            }
+          )
+        } catch (error) {
+          this.weatherErrorServer = true
+          console.log(error);
+        }
+      }
+    },
+  },
+};
 </script>
+
+<style>
+  :root{
+    --scroll-bar-height: 4px
+}
+</style>
