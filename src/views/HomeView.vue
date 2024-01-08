@@ -1,12 +1,12 @@
 <template>
   <div class="home flex flex-col items-center">
-    <div class="input_cont w-1/3 relative">
+    <div class="input_cont w-1/2 relative">
       <input
         type="search"
         name=""
         id="search-inp"
         placeholder="Enter a city name"
-        class=" w-full focus:outline-none bg-transparent border-b focus:border-weather-color-secondly focus:shadow-[0px_1px_0_0_#004E71]"
+        class=" w-full focus:outline-none bg-transparent border-b focus:border-weather-color-secondly focus:shadow-[0px_1px_0_0_#004E71] text-white"
         v-model="searchQuery"
         @input="getCities"
       />
@@ -17,15 +17,19 @@
       <div v-if="noMatchingCities" class="suggest-city p-1 bg-white h-fit w-full
        hover:bg-weather-color-secondly hover:text-white cursor-pointer">
       There is no matching cities</div>
+      
   </div>
-    
+  <savedCities></savedCities>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import SavedCities from './savedCities.vue';
 export default {
   name: 'HomeView',
+  components:{
+  SavedCities,},
   data() {
     return {
       searchQuery: '',

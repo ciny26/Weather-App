@@ -1,7 +1,7 @@
 <template>
     <div v-if="cityWeather !== ''">
         <!-- Banner -->
-        <div v-if="this.$store.getters.getCityState !== true" class="add-instruction flex justify-center bg-weather-color-secondly text-white
+        <div class="add-instruction flex justify-center bg-weather-color-secondly text-white
          p-4 ">
             <p class=" text-center" >
                 You are currently previewing this city, click the "+" 
@@ -15,7 +15,8 @@
             <p class="temp text-8xl mb-8">{{ convertTemp(cityWeather.currentConditions.temp) }}&deg;</p>
             <p class="temp-feels-like">it feels like : {{ convertTemp(cityWeather.currentConditions.feelslike) }}&deg;</p>
             <p class="Capitalize"> {{ cityWeather.currentConditions.conditions}}</p>
-            <img class="icons h-9 w-9 " v-if="cityWeather.currentConditions.icon === 'rain' " src='../weather_icons/rain.png' alt="no">
+            <img class="icons h-9 w-9 " v-if="cityWeather.currentConditions.icon === 'snow'  " src='../weather_icons/snow.png' alt="no">
+            <img class="icons h-9 w-9 " v-else-if="cityWeather.currentConditions.icon === 'rain' " src='../weather_icons/rain.png' alt="no">
             <img class="icons h-9 w-9 " v-else-if="cityWeather.currentConditions.icon === 'clear-night'" src='../weather_icons/clear-night.png' alt="no">
             <img class="icons h-9 w-9 " v-else-if="cityWeather.currentConditions.icon === 'clear-day'" src='../weather_icons/clear-day.png' alt="no">
             <img class="icons h-9 w-9 " v-else-if="cityWeather.currentConditions.icon === 'partly-cloudy-night'" src='../weather_icons/partly-cloudy-night.png' alt="no">
@@ -89,6 +90,7 @@ export default {
       this.formattedTime = formatter.format(new Date());
     },
     },
+    
 }
 </script>
 <style>

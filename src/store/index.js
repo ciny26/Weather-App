@@ -9,16 +9,16 @@ export default createStore({
     getSavedCities(state){
       return state.savedCities
     },
-    getCityState(state){
+    /* getCityState(state){
       return state.cityIsSaved
-    }
+    } */
   },
   mutations: {
     setSavedCities(state){
       state.savedCities = JSON.parse(localStorage.getItem('savedCities'))
     },
-     changeCityState(state){
-      state.cityIsSaved = true
+     changeCityState(state , newValue){
+      state.cityIsSaved = newValue
     } 
   },
   actions: {

@@ -8,13 +8,14 @@
                     <p class="Days text-md whitespace-nowrap w-1/3 ">{{ formatDate(item) }}</p>
                     <p class="temp text-md m-0 " >Min: {{ Math.round( (minDayTempArray[index]  - 32) * 5/9 ) }}&deg;, Max: 
                         {{ Math.round( (maxDayTempArray[index]  - 32) * 5/9 ) }}&deg;</p>
-                    <img class="icons h-9 w-9 " v-if="iconArray[index] === 'rain' " src='../weather_icons/rain.png' alt="no">
+                    <img class="icons h-9 w-9 " v-if="iconArray[index] === 'snow'" src='../weather_icons/snow.png' alt="no">
+                    <img class="icons h-9 w-9 " v-else-if="iconArray[index] === 'rain' " src='../weather_icons/rain.png' alt="no">
                     <img class="icons h-9 w-9 " v-else-if="iconArray[index] === 'clear-day'" src='../weather_icons/clear-day.png' alt="no">
                     <img class="icons h-9 w-9 " v-else-if="iconArray[index] === 'clear-night' " src='../weather_icons/clear-night.png' alt="no">
                     <img class="icons h-9 w-12 " v-else-if="iconArray[index] === 'partly-cloudy-night'" src='../weather_icons/partly-cloudy-night.png' alt="no">
                     <img class="icons h-9 w-9 " v-else-if="iconArray[index] === 'partly-cloudy-day'" src='../weather_icons/partly-cloudy-day.png' alt="no">
                     <img class="icons h-9 w-9 " v-else-if="iconArray[index] === 'partly-cloudy' || 'cloudy' " src='../weather_icons/cloudy.png' alt="no">
-                    
+
                 </div>
                 
             </div>

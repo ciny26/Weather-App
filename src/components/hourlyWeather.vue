@@ -5,7 +5,8 @@
             <div class="weather-modals flex overflow-x-auto gap-10 mx-6 " id="customScrollbar">
                 <div v-for="(item,index) in hourlyWeather"   :key="index" class="weatherHours flex flex-col gap-4 items-center">
                     <p class="Hours text-md whitespace-nowrap ">{{ item }}</p>
-                    <img class="icons h-9 w-9 " v-if="iconArray[index] === 'rain' " src='../weather_icons/rain.png' alt="no">
+                    <img class="icons h-9 w-9 " v-if="iconArray[index] === 'snow'" src='../weather_icons/snow.png' alt="no">
+                    <img class="icons h-9 w-9 " v-else-if="iconArray[index] === 'rain' " src='../weather_icons/rain.png' alt="no">
                     <img class="icons h-9 w-9 " v-else-if="iconArray[index] === 'clear-day'" src='../weather_icons/clear-day.png' alt="no">
                     <img class="icons h-9 w-9 " v-else-if="iconArray[index] === 'clear-night' " src='../weather_icons/clear-night.png' alt="no">
                     <img class="icons h-9 w-12 " v-else-if="iconArray[index] === 'partly-cloudy-night'" src='../weather_icons/partly-cloudy-night.png' alt="no">
