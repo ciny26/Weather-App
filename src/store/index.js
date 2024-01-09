@@ -3,23 +3,18 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     savedCities:[],
-    cityIsSaved:false
+    cityIsSaved:null
   },
   getters: {
     getSavedCities(state){
       return state.savedCities
     },
-    /* getCityState(state){
+     getCityState(state){
       return state.cityIsSaved
-    } */
+    } 
   },
   mutations: {
-    setSavedCities(state){
-      state.savedCities = JSON.parse(localStorage.getItem('savedCities'))
-    },
-     changeCityState(state , newValue){
-      state.cityIsSaved = newValue
-    } 
+    
   },
   actions: {
   },

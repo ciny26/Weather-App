@@ -11,6 +11,10 @@
             <div class="Max&Min-temp text-xs">Max: {{ Math.round((cityTempMax- 32) * 5/9)     }}&deg;&nbsp;&nbsp;&nbsp;
                    Min: {{ Math.round((cityTempMin- 32) * 5/9)  }}&deg;</div>
         </div>
+        <div class="delete text-center bg-sky-700 px-2" @click.stop="deleteCity">
+            <i class="fa-solid fa-trash cursor-pointer text-xs "></i>
+            <div class=" text-sm ">Delete</div>
+        </div>
         
     </div>
 </template>
@@ -26,12 +30,12 @@ export default {
             currentCityWeather:null,
             cityTempMax:null,
             cityTempMin:null,
+            savedCities:[]
         }
     },
     props:['savedCity'],
     methods: {
         async getsavedData(){
-            console.log(this.savedCity.cord.lat)
              try {
                 const response = await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${this.savedCity.cord.lat},${this.savedCity.cord.lon}
                 ?key=5HBHGYLKZT5KG7H7V5HGKFFED`);
@@ -40,25 +44,29 @@ export default {
                 this.currentCityWeather = cityWeather.currentConditions.temp
                 this.cityTempMax = cityWeather.days[0].tempmax
                 this.cityTempMin = cityWeather.days[0].tempmin
-                console.log(cityWeather.days[0].tempmin)
             } catch (error) {
                 console.log(error)
             } 
         },
         cityDetails(){
-            this.$router.push(
+             this.$router.push(
             {
               name:'cityView',
               params:{city: this.savedCity.city , country:this.savedCity.country, 
                 lat:this.savedCity.cord.lat , lon:this.savedCity.cord.lon}
             }
-          )
+          ) 
+          
+        },
+        deleteCity(){
+            // Emit the delete-city event with the city name as the payload
+            this.$emit('delete-city', this.savedCity.city);
         }
     },
 }
 </script>
 <style scoped>
-    @media (max-width: 500px){
+    @media (max-width: 600px){
         .city-cont{
             flex-direction: column;
             align-items: center;
@@ -66,7 +74,7 @@ export default {
         }
         .city-cont>*{
             text-align: center;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
     }

@@ -9,6 +9,7 @@
           <i class="fas fa-info flex justify-center text-xs text-weather-color-primary
            bg-white h-4 w-4 rounded-full cursor-pointer hover:text-white hover:bg-weather-color-secondly" @click="showModal"></i>
           <i v-if="!checkItem" class=" plus fa-solid fa-plus cursor-pointer text-xs ml-1 " @click="addCity"></i>
+          <i v-if="checkItem" class="fa-solid fa-trash cursor-pointer text-xs ml-3 " @click="deleteCity" ></i>
         </div>
         
       </nav>
@@ -45,10 +46,7 @@
     },
      mounted() {
       
-       if (localStorage.getItem('savedCities')){
-          this.savedCities = JSON.parse(localStorage.getItem('savedCities'))
-          
-        } 
+      this.setSavedCitiesValue()
         
     }, 
     methods: {
@@ -59,9 +57,7 @@
         this.modalAppearence = data 
       },
       addCity(){
-        if (localStorage.getItem('savedCities')){
-          this.savedCities = JSON.parse(localStorage.getItem('savedCities'))
-        }
+        this.setSavedCitiesValue()
         const locationObj = {
           id:uid(),
           city:this.$route.params.city,
@@ -73,49 +69,49 @@
           
         }
         const cityExists = this.savedCities.some(savedCity => savedCity.city === locationObj.city);
-        this.existed = cityExists
-        console.log(locationObj)
+        
         //whe had to verify if the array of saved cities doesn't contain the city already
         if(!cityExists && this.areAllValuesDefined(locationObj)){
           this.savedCities.push(locationObj)
           localStorage.setItem('savedCities' , JSON.stringify(this.savedCities))
+          this.$store.state.cityIsSaved = true
+          console.log('state '+ this.$store.state.cityIsSaved)
         }
         else{
-          console.log('the city is already there')
+          console.log("You can't add undifined ")
         }
         
         
+      },
+      deleteCity(){
+        this.setSavedCitiesValue()
+          //whe had to verify if the array of saved cities doesn't contain the city already
+
+            this.savedCities = this.savedCities.filter((savedCity) => savedCity.city !== this.$route.params.city )
+            localStorage.setItem('savedCities' , JSON.stringify(this.savedCities))
+            this.$store.state.cityIsSaved = false
+            console.log('state '+this.$store.state.cityIsSaved)
+              
       },
         areAllValuesDefined(obj) {
           //this method is verifiying if the object that we putted in the array of saved cities
           //is valid (not empty)
       return Object.values(obj).every(value => value !== undefined);
     },
-    
+    setSavedCitiesValue(){
+      if (localStorage.getItem('savedCities')){
+            this.savedCities = JSON.parse(localStorage.getItem('savedCities'))
+          } 
+    }
       },
       computed:{
         checkItem(){
+          this.setSavedCitiesValue()
           const cityExists = this.savedCities.some(savedCity => savedCity.city === this.$route.params.city);
-          //this.$store.commit('changeCityState' , true)
           return cityExists 
         }
       }
-    
 }
-      /* checkIfExisted(){
-        if (localStorage.getItem('savedCities')) {
-          const objectsArray = JSON.parse(localStorage.getItem('savedCities'))
-          objectsArray.forEach((obj)=>{
-            if(this.$route.params.lat === obj.cord.lat &&
-            this.$route.params.lon === obj.cord.lon){
-              this.existed = true
-              this.$store.commit('changeCityState')
-            }
-          })
-        }
-        
-      } */
-  
   </script>
   <style>
     h1{

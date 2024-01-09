@@ -1,11 +1,11 @@
 <template>
-    <div v-if="cityWeather !== ''">
+    <div v-if="cityWeather !== '' && weatherStatusOk ===true "  >
         <!-- Banner -->
-        <div class="add-instruction flex justify-center bg-weather-color-secondly text-white
-         p-4 ">
-            <p class=" text-center" >
+        <div v-if="this.$store.state.cityIsSaved === false" @click="showPreviewCityBa"  class="add-instruction flex justify-center bg-weather-color-secondly text-white
+         p-4 " >
+            <p class=" text-center"  >
                 You are currently previewing this city, click the "+" 
-                icon to start tracking this city
+                icon to start tracking this city 
             </p>
     </div>
         <!-- Weather Overview -->
@@ -31,30 +31,40 @@
         <monthlyWeather></monthlyWeather>
         
     </div>
+    <!-- error state -->
+    <div v-if="!weatherStatusOk">
+        <errorView>
+            <h1 class="text-center text-white text-2xl">{{ codeError }}</h1>
+        </errorView>
+    </div>
 </template>
 <script>
 import axios from 'axios';
 import hourlyWeather from '@/components/hourlyWeather'
 import monthlyWeather from '@/components/monthlyWeather'
-
+import errorView from '@/views/errorView'
 export default {
     components:{
         hourlyWeather,
-        monthlyWeather
+        monthlyWeather,
+        errorView
     },
     data() {
         return {
             cityWeather:'',
             timeZone:'',
             formattedTime: '',
+            weatherStatusOk:true,
+            codeError:'Hello'
         }
     },
-    mounted(){
+    created(){
         if(this.$route.params.lat !== '' && this.$route.params.lon !== '' )
         this.getWeather()
         this.updateTime();
     // Update the time every second (you can adjust the interval as needed)
         setInterval(this.updateTime, 1000);
+       
         
     },
     methods: {
@@ -63,9 +73,12 @@ export default {
                 const response = await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${this.$route.params.lat},${this.$route.params.lon}
                 ?key=5HBHGYLKZT5KG7H7V5HGKFFED`);
                 this.cityWeather = response.data
-                console.log(this.cityWeather)
+                
             } catch (error) {
                 console.log(error)
+                this.weatherStatusOk=false
+                this.codeError = error
+
             }
         },
         convertTemp(tempinF){
@@ -85,11 +98,34 @@ export default {
             minute: 'numeric',
             second: 'numeric',
             timeZone: this.timeZone,
+            savedCities:[]
       };
       const formatter = new Intl.DateTimeFormat('en-US', options);
       this.formattedTime = formatter.format(new Date());
     },
+    
+    setSavedCitiesValue(){
+      if (localStorage.getItem('savedCities')){
+             this.savedCities = JSON.parse(localStorage.getItem('savedCities'))
+          }
+          return this.savedCities
+           
     },
+    checkItem(){
+          const cityExists = this.savedCities.some(savedC => savedC.city === this.$route.params.city);
+          console.log(cityExists)
+          return cityExists 
+        },
+        showPreviewCityBa(){
+           this.setSavedCitiesValue()
+           console.log(this.savedCities)
+            let a = this.checkItem()
+            
+            console.log(a)
+            return a
+        },
+    },
+    
     
 }
 </script>

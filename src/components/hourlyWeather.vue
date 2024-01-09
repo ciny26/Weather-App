@@ -45,7 +45,6 @@ export default {
                 ?key=5HBHGYLKZT5KG7H7V5HGKFFED`)
             const data = response.data
             const currentDayWeather = data.days[0]
-            console.log(currentDayWeather.hours)
             currentDayWeather.hours.forEach((hour) => {
                 const numHour =Number(hour.datetime.split(":")[0])
                     if(numHour > 12 ){

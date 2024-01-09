@@ -1,5 +1,5 @@
 <template>
-  <div class="home flex flex-col items-center">
+  <div class="home flex flex-col items-center py-4">
     <div class="input_cont w-1/2 relative">
       <input
         type="search"
@@ -12,7 +12,7 @@
       />
       <div v-if="city" class="suggest-city p-1 bg-white h-7 w-full hover:bg-weather-color-secondly hover:text-white cursor-pointer" 
       @click="CityView">
-        {{ city.name }} ,{{ city.country }}
+        {{ city.name}} ,{{ city.country}}
       </div>
       <div v-if="noMatchingCities" class="suggest-city p-1 bg-white h-fit w-full
        hover:bg-weather-color-secondly hover:text-white cursor-pointer">
@@ -21,6 +21,7 @@
   </div>
   <savedCities></savedCities>
   </div>
+  
 </template>
 
 <script>
@@ -29,14 +30,15 @@ import SavedCities from './savedCities.vue';
 export default {
   name: 'HomeView',
   components:{
-  SavedCities,},
+  SavedCities,
+},
   data() {
     return {
       searchQuery: '',
       city: null,
       noMatchingCities: false,
-      cityErrorServer: false,
-      weatherErrorServer: false,
+      
+      
       
 
     };
@@ -62,14 +64,16 @@ export default {
         this.city = null;
       }
       } catch (error) {
-        this.cityErrorServer = true
-        console.error(error);
+                console.log(error)
+                
+
+            
       }
     },
     async CityView() {
       if (this.city) {
         try {
-          this.cityErrorServer = false
+          
           
           this.$router.push(
             {

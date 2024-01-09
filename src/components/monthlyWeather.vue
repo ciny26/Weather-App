@@ -47,7 +47,6 @@ export default {
                 ?key=5HBHGYLKZT5KG7H7V5HGKFFED`)
             const data = response.data
             const daysList = data.days
-            console.log(daysList)
             daysList.forEach((day)=>{
                 this.weatherDays.push(day.datetime)
                 this.maxDayTempArray.push(day.tempmax)
