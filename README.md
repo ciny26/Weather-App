@@ -31,21 +31,23 @@
 
 
 ## Screenshots
-
+**Main View
 ![Main View](./Screenshots/mainView.png)
   
 ---
-  
+**Async City View  
 ![Async City View](./Screenshots/asyncCity.png)
 
 ---
-  
+**Mobile Main View
 ![Mobile Main View](./Screenshots/mobileMainView.png)
 
 ---
+**Mobile Async City View
 ![Mobile Async City View](./Screenshots/mobileAsyncCity.png)
 
 ---
+**Non Tracked City View
 ![Non Tracked City View](./Screenshots/notTrackingCity.png)
 
 ---
@@ -57,7 +59,8 @@
    ```bash
    npm install
 2.run the server
-npm run serve
+   ```bash
+   npm run serve
 
 
 
