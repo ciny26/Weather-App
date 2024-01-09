@@ -55,7 +55,7 @@ export default {
             timeZone:'',
             formattedTime: '',
             weatherStatusOk:true,
-            codeError:'Hello'
+            savedCities:[]
         }
     },
     created(){
@@ -64,8 +64,8 @@ export default {
         this.updateTime();
     // Update the time every second (you can adjust the interval as needed)
         setInterval(this.updateTime, 1000);
-       
-        
+        this.setSavedCitiesValue()
+        this.checkItem()
     },
     methods: {
         async getWeather(){
@@ -108,21 +108,13 @@ export default {
       if (localStorage.getItem('savedCities')){
              this.savedCities = JSON.parse(localStorage.getItem('savedCities'))
           }
-          return this.savedCities
+          
            
     },
     checkItem(){
+
           const cityExists = this.savedCities.some(savedC => savedC.city === this.$route.params.city);
-          console.log(cityExists)
-          return cityExists 
-        },
-        showPreviewCityBa(){
-           this.setSavedCitiesValue()
-           console.log(this.savedCities)
-            let a = this.checkItem()
-            
-            console.log(a)
-            return a
+          this.$store.state.cityIsSaved = cityExists
         },
     },
     

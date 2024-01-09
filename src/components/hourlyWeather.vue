@@ -51,8 +51,13 @@ export default {
                         this.hourlyWeather.push(numHour%12 + ' PM'  )
                     }
                     else{
+                        if (numHour < 12) {
                         this.hourlyWeather.push(numHour + ' AM'  )
+                        } else {
+                        this.hourlyWeather.push( '12 PM'  )
+                        }
                     }
+                    
             });  
             currentDayWeather.hours.forEach((hour)=>{
                 this.iconArray.push(hour.icon)

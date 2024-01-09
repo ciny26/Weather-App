@@ -75,12 +75,7 @@
           this.savedCities.push(locationObj)
           localStorage.setItem('savedCities' , JSON.stringify(this.savedCities))
           this.$store.state.cityIsSaved = true
-          console.log('state '+ this.$store.state.cityIsSaved)
         }
-        else{
-          console.log("You can't add undifined ")
-        }
-        
         
       },
       deleteCity(){
@@ -90,7 +85,6 @@
             this.savedCities = this.savedCities.filter((savedCity) => savedCity.city !== this.$route.params.city )
             localStorage.setItem('savedCities' , JSON.stringify(this.savedCities))
             this.$store.state.cityIsSaved = false
-            console.log('state '+this.$store.state.cityIsSaved)
               
       },
         areAllValuesDefined(obj) {

@@ -66,11 +66,21 @@ export default {
 }
 </script>
 <style scoped>
+.delete{
+    border: 1px solid rgba(255, 255, 255, 0.273);
+    border-radius: 0.75rem;
+}
+.delete:hover{
+    transform: scale(1.08);
+}
+.city-cont{
+    border-radius: 0.75rem;
+}
     @media (max-width: 600px){
         .city-cont{
             flex-direction: column;
             align-items: center;
-            border: 2px solid rgb(237, 237, 189);
+            border: 1px solid rgb(237, 237, 189);
         }
         .city-cont>*{
             text-align: center;

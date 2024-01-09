@@ -53,7 +53,6 @@ export default {
             this.cityErrorServer = false
             this.noMatchingCities = false
             this.city = cities.data[0];
-            console.log('City:', this.city);
           } else {
             this.noMatchingCities = true
             this.city = null;
