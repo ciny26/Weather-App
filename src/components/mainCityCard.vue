@@ -1,7 +1,7 @@
 <template>
     <div class="city-cont flex flex-row justify-between  
     items-center my-4 p-2 bg-weather-color-secondly text-white cursor-pointer" @click="cityDetails()">
-        <div class="place text-xl">
+        <div class="place text-xl w-2/5">
             <div class="city text-xl">{{ cityName }}</div>
             <div class="country text-sm">{{ savedCity.country }}</div>
         </div>

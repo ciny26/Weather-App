@@ -1,5 +1,5 @@
 <template>
-    <div  class=" w-8/12 text-white text-xl" v-for="item in this.storedCities" :key="item"
+    <div  class=" w-7/12 text-white text-xl" v-for="item in this.storedCities" :key="item"
      >
         <mainCityCard :savedCity="item" @delete-city="deleteCity"></mainCityCard>
     </div>

@@ -15,7 +15,7 @@
                     <img class="icons h-9 w-12 " v-else-if="iconArray[index] === 'partly-cloudy-night'" src='../weather_icons/partly-cloudy-night.png' alt="no">
                     <img class="icons h-9 w-9 " v-else-if="iconArray[index] === 'partly-cloudy-day'" src='../weather_icons/partly-cloudy-day.png' alt="no">
                     <img class="icons h-9 w-9 " v-else-if="iconArray[index] === 'partly-cloudy' || 'cloudy' " src='../weather_icons/cloudy.png' alt="no">
-
+                    <hr class=" seperator w-full border-white opacity-10 border mt-2">
                 </div>
                 
             </div>
@@ -64,6 +64,9 @@ export default {
 //`../weather_icons/${iconArray[index]}.*`
 </script>
 <style scoped>
+    .seperator{
+        display: none;
+    }
     @media (max-width:605px) {
         .title{
             text-align: center;
@@ -81,6 +84,9 @@ export default {
         }
         .temp{
             width: 100%;
+        }
+        .seperator{
+            display: block;
         }
     }
 </style>
