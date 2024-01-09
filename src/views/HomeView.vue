@@ -27,6 +27,7 @@
 <script>
 import axios from 'axios';
 import SavedCities from './savedCities.vue';
+import {cityAPIKEY} from '../Api'
 export default {
   name: 'HomeView',
   components:{
@@ -47,7 +48,7 @@ export default {
     async getCities() {
       try {
         if (this.searchQuery !== '') {
-          const cities = await axios.get(`https://api.api-ninjas.com/v1/city?name=${this.searchQuery}&X-Api-Key=YVa6zxGP4xhPrJFjDeMb0A==3mEW070aoDb5Klxh`);
+          const cities = await axios.get(`https://api.api-ninjas.com/v1/city?name=${this.searchQuery}&X-Api-Key=${cityAPIKEY}`);
           if (cities.data.length > 0) {
             this.cityErrorServer = false
             this.noMatchingCities = false
@@ -73,7 +74,6 @@ export default {
     async CityView() {
       if (this.city) {
         try {
-          
           
           this.$router.push(
             {
