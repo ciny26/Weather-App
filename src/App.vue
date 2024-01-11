@@ -1,5 +1,5 @@
 <template >
-  <div class="flex flex-col bg-weather-color-primary min-h-screen">
+  <div class="flex flex-col bg-weather-color-primary min-h-screen relative">
     <navigationBar />
     
     <router-view></router-view>
@@ -19,5 +19,5 @@ export default {
 }
 </script>
 <style >
-  
+
 </style>
